@@ -48,6 +48,7 @@ app.get('/getTestByTestName', wrap(require('./getTestByTestName')));
 app.get('/getTestPerPlatform', wrap(require('./getTestPerPlatform')));
 app.get('/getTopLevelBuildNames', wrap(require('./getTopLevelBuildNames')));
 app.get('/getTotals', wrap(require('./getTotals')));
+app.get('/getRerunDetails', wrap(require('./getRerunDetails')));
 app.get('/parseJenkinsUrl', wrap(require('./parseJenkinsUrl')));
 app.get('/populateDB', wrap(require('./populateDB')));
 app.get('/getFeedbackUrl', wrap(require('./getFeedbackUrl')));
