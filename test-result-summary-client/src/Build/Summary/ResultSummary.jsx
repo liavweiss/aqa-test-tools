@@ -41,6 +41,7 @@ export default function ResultSummary() {
         summary: {},
         machinesData: {},
         rerunSummary: {},
+        jobsDetailsSummary: {},
         parentBuildInfo: {},
         childBuildsResult: 'UNDEFINED',
         javaVersion: null,
@@ -57,8 +58,11 @@ export default function ResultSummary() {
                 `/api/GetFailedTestByMachine?parentId=${parentId}`
             );
             console.log('machinesDataRes = ', machinesDataRes);
-            // get rerun summary (i.e., number of manual rerun needed) //Todo: add more metrics 
+            // get rerun summary
             const rerunRes = fetchData(`/api/getRerunDetails?id=${parentId}`);
+
+            // get jobs details
+            const jobsDetailsRes = fetchData(`/api/getJobsDetails?id=${parentId}`);
 
             // get build information
             const buildInfoRes = fetchData(`/api/getData?_id=${parentId}`);
@@ -83,10 +87,11 @@ export default function ResultSummary() {
                     parentId,
                 })}`
             );
-            const [summary, rerunSummary, machinesData, buildInfo, sdkBuilds, builds] =
+            const [summary, rerunSummary, jobsDetailsSummary, machinesData, buildInfo, sdkBuilds, builds] =
                 await Promise.all([
                     summaryRes,
                     rerunRes,
+                    jobsDetailsRes,
                     machinesDataRes,
                     buildInfoRes,
                     sdkBuildsRes,
@@ -329,6 +334,7 @@ export default function ResultSummary() {
                 summary,
                 machinesData,
                 rerunSummary,
+                jobsDetailsSummary,
                 parentBuildInfo,
                 selectedPlatforms: platformOpts,
                 allPlatforms: platformOpts,
@@ -356,6 +362,7 @@ export default function ResultSummary() {
         summary,
         machinesData,
         rerunSummary,
+        jobsDetailsSummary,
         parentBuildInfo,
         childBuildsResult,
         sdkBuilds,
@@ -374,6 +381,7 @@ export default function ResultSummary() {
                     summary={summary}
                     machinesData={machinesData}
                     rerunSummary={rerunSummary}
+                    jobsDetailsSummary={jobsDetailsSummary} 
                     childBuildsResult={childBuildsResult}
                     sdkBuilds={sdkBuilds}
                     javaVersion={javaVersion}
